@@ -4,7 +4,7 @@
 
 	<groupId>fb4d3be3-5b9b-4373-8d30-e1d667407bb1</groupId>
 	<artifactId>dev-agent</artifactId>
-	<version>1.0.0</version>
+	<version>${mule.app.ver}</version>
 	<packaging>mule-application</packaging>
 
 	<name>dev-agent</name>
@@ -15,7 +15,7 @@
 
 		<app.runtime>4.9.4</app.runtime>
 		<mule.maven.plugin.version>4.3.0</mule.maven.plugin.version>
-		<mule.app.ver>1.0.1-SNAPSHOT</mule.app.ver>
+		<mule.app.ver>1.0.2-SNAPSHOT</mule.app.ver>
 	</properties>
 
 	<build>
@@ -37,7 +37,7 @@
 						<businessGroup>JumSoft</businessGroup>
 						<environment>${environment}</environment>
 						<target>${anypoint.psname}</target>
-						<muleVersion>4.9.6:5e</muleVersion>
+						<muleVersion>4.9.6</muleVersion>
 						<connectedAppClientId>${connected.app.id}</connectedAppClientId>
 						<connectedAppClientSecret>${connected.app.secret}</connectedAppClientSecret>
 						<connectedAppGrantType>client_credentials</connectedAppGrantType>
