@@ -48,7 +48,7 @@ jobs:
         mvn clean deploy -DmuleDeploy \
          -Denvironment="Sandbox" \
          -Dtarget.env="dev" \
-         -Danypoint.psname="mySpace"  \
+         -Danypoint.psname="Cloudhub-US-East-2"  \
          -Dconnected.app.id="$APPID" \
          -Dconnected.app.secret="$APPSECRET" \
          -Denv.client.id="$ENVID" \
