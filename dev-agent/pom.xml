@@ -37,6 +37,7 @@
 						<businessGroup>JumSoft</businessGroup>
 						<environment>${environment}</environment>
 						<target>${anypoint.psname}</target>
+						<releaseChannel>stable</releaseChannel>
 						<muleVersion>${app.runtime}</muleVersion>
 						<connectedAppClientId>${connected.app.id}</connectedAppClientId>
 						<connectedAppClientSecret>${connected.app.secret}</connectedAppClientSecret>
