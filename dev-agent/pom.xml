@@ -4,7 +4,7 @@
 
 	<groupId>fb4d3be3-5b9b-4373-8d30-e1d667407bb1</groupId>
 	<artifactId>dev-agent</artifactId>
-	<version>1.0.0</version>
+	<version>${mule.app.ver}</version>
 	<packaging>mule-application</packaging>
 
 	<name>dev-agent</name>
