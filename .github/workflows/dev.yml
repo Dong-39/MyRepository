@@ -48,6 +48,4 @@ jobs:
          -Dtarget.env="dev" \
          -Danypoint.psname="Cloudhub-US-East-2"  \
          -Dconnected.app.id="$APPID" \
-         -Dconnected.app.secret="$APPSECRET" \
-         -Dmule.runtime.version=4.9.6 \
-         -Dmule.runtime.channel=edge
+         -Dconnected.app.secret="$APPSECRET" 
