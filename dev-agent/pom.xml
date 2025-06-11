@@ -4,7 +4,7 @@
 
 	<groupId>fb4d3be3-5b9b-4373-8d30-e1d667407bb1</groupId>
 	<artifactId>dev-agent</artifactId>
-	<version>${mule.app.ver}</version>
+	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
 
 	<name>dev-agent</name>
@@ -31,29 +31,29 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-			    <cloudhub2Deployment>
-			      <uri>https://anypoint.mulesoft.com</uri>
-			      <provider>MC</provider>
-			      <businessGroup>JumSoft</businessGroup>
-			      <environment>${environment}</environment>
-			      <target>${anypoint.psname}</target>
-			      <muleVersion>4.9.6:5e</muleVersion>
-			      <connectedAppClientId>${connected.app.id}</connectedAppClientId>
-			      <connectedAppClientSecret>${connected.app.secret}</connectedAppClientSecret>
-			      <connectedAppGrantType>client_credentials</connectedAppGrantType>
-			      <applicationName>dev-agent</applicationName>
-			      <replicas>1</replicas>
-			      <vCores>0.1</vCores>
-			      <deploymentSettings>
-			        <generateDefaultPublicUrl>true</generateDefaultPublicUrl>
-			      </deploymentSettings>
-			      <properties>
-			        <target.env>${target.env}</target.env>
-			        <muleAppVer>${mule.app.ver}</muleAppVer>
-			      </properties>
-			    </cloudhub2Deployment>
-			    <classifier>mule-application</classifier>
-			</configuration>
+					<cloudhub2Deployment>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<provider>MC</provider>
+						<businessGroup>JumSoft</businessGroup>
+						<environment>${environment}</environment>
+						<target>${anypoint.psname}</target>
+						<muleVersion>4.9.6:5e</muleVersion>
+						<connectedAppClientId>${connected.app.id}</connectedAppClientId>
+						<connectedAppClientSecret>${connected.app.secret}</connectedAppClientSecret>
+						<connectedAppGrantType>client_credentials</connectedAppGrantType>
+						<applicationName>dev-agent</applicationName>
+						<replicas>1</replicas>
+						<vCores>0.1</vCores>
+						<deploymentSettings>
+							<generateDefaultPublicUrl>true</generateDefaultPublicUrl>
+						</deploymentSettings>
+						<properties>
+							<target.env>${target.env}</target.env>
+							<muleAppVer>${mule.app.ver}</muleAppVer>
+						</properties>
+					</cloudhub2Deployment>
+					<classifier>---- select project type ----</classifier>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -99,14 +99,13 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-	
 	<distributionManagement>
-	    <repository>
-	      <id>anypoint-exchange-v3</id>
-	      <name>Corporate Repository</name>
-	      <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
-	      <layout>default</layout>
-	    </repository>
+		<repository>
+			<id>anypoint-exchange-v3</id>
+			<name>Corporate Repository</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
+			<layout>default</layout>
+		</repository>
 	</distributionManagement>
 
 </project>
