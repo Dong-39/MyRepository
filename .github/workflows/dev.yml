@@ -1,6 +1,7 @@
 name: Add to Exchange and Deploy to Sandbox
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - Dev
