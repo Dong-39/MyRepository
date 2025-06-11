@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="f08be4e6-eccc-4d69-af39-c8218bd2f414" >
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="7b5c151c-c177-4e09-aed1-2bf079d5132b" file="${target.env}-config.yaml" />
+	<global-property doc:name="Global Property" doc:id="20ac9605-2245-4186-a0b1-e77798b8152f" name="target.env" value="local" />
+	<api-gateway:autodiscovery apiId="${apiInstanceId}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="e6ac048a-fd86-499b-85da-b7c48c05a47f" flowRef="dev-agentFlow" />
 	<flow name="dev-agentFlow" doc:id="01704dac-b5e9-4bf5-b0b5-07187e41d606" >
 		<http:listener doc:name="GET /go" doc:id="b681ce4d-6d61-408c-bf95-61597f748053" config-ref="HTTP_Listener_config" path="/go" allowedMethods="GET"/>
 		<ee:transform doc:name="Transform Message" doc:id="4f839753-6bd6-409a-afff-7d7f4aa9762b" >
@@ -16,7 +20,8 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-	msg: "Hello",
+	msg: "Hello,agent",
+	infomation: p('msg'),
 	version: p('muleAppVer'),
 	deployment: p('target.env'),
 }]]></ee:set-payload>
