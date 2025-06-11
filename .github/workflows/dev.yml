@@ -9,6 +9,8 @@ on:
 env:
   APPID: ${{ secrets.mule_connected_app_sand_id }}
   APPSECRET: ${{ secrets.mule_connected_app_sand_secret }}
+  ENVID: ${{ secrets.sandbox_client_id }}
+  ENVSECRET: ${{ secrets.sandbox_client_secret }}
 
 jobs:
   exchangedep:
@@ -46,6 +48,8 @@ jobs:
         mvn clean deploy -DmuleDeploy \
          -Denvironment="Sandbox" \
          -Dtarget.env="dev" \
-         -Danypoint.psname="Cloudhub-US-East-2"  \
+         -Danypoint.psname="mySpace"  \
          -Dconnected.app.id="$APPID" \
-         -Dconnected.app.secret="$APPSECRET" 
+         -Dconnected.app.secret="$APPSECRET" \
+         -Denv.client.id="$ENVID" \
+         -Denv.client.secret="$ENVSECRET"
