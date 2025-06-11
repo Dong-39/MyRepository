@@ -16,12 +16,11 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-	msg: "Hello",
+	msg: "Hello,agent",
 	version: p('muleAppVer'),
 	deployment: p('target.env'),
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<set-payload value="#[payload]" doc:name="da1" doc:id="8d10d4bf-e04b-4d77-b06a-3b05b9c4ab33" />
 	</flow>
 </mule>
