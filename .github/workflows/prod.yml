@@ -21,6 +21,7 @@ jobs:
       working-directory: ./dev-agent
       run: |
         mvn clean deploy -DmuleDeploy \
+         -Dapp.name="dev-agent-prod" \
          -Denvironment="Prod" \
          -Dtarget.env="prod" \
          -Danypoint.psname="Cloudhub-US-East-2"  \
