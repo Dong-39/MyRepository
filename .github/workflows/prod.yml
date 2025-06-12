@@ -46,8 +46,8 @@ jobs:
       working-directory: ./dev-agent
       run: |
         mvn clean deploy -DmuleDeploy \
-         -Denvironment="Pord" \
-         -Dtarget.env="dev" \
+         -Denvironment="prod" \
+         -Dtarget.env="prod" \
          -Danypoint.psname="Cloudhub-US-East-2"  \
          -Dconnected.app.id="$APPID" \
          -Dconnected.app.secret="$APPSECRET" \
