@@ -41,7 +41,7 @@
 						<connectedAppClientId>${connected.app.id}</connectedAppClientId>
 						<connectedAppClientSecret>${connected.app.secret}</connectedAppClientSecret>
 						<connectedAppGrantType>client_credentials</connectedAppGrantType>
-						<applicationName>dev-agent</applicationName>
+						<applicationName>${app.name}</applicationName>
 						<replicas>1</replicas>
 						<vCores>0.1</vCores>
 						<deploymentSettings>
