@@ -3,14 +3,13 @@ name: Deploy to Production
 on:
   workflow_dispatch:
   push:
-    branches:
-      - master 
+    branches: [ master ]
 
 env:
   APPID: ${{ secrets.mule_connected_app_prod_id }}
   APPSECRET: ${{ secrets.mule_connected_app_prod_secret }}
-  ENVID: ${{ secrets.prod_client_id  }}
-  ENVSECRET: ${{ secrets.prod_client_secret  }}
+  ENVID: ${{ secrets.prod_client_id }}
+  ENVSECRET: ${{ secrets.prod_client_secret }}
 
 jobs:
   deploy:
@@ -23,7 +22,7 @@ jobs:
       run: |
         mvn clean deploy -DmuleDeploy \
          -Dapp.name="dev-agent-prod" \
-         -Denvironment="Pord" \
+         -Denvironment="Prod" \
          -Dtarget.env="prod" \
          -Danypoint.psname="Cloudhub-US-East-2"  \
          -Dconnected.app.id="$APPID" \
