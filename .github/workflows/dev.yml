@@ -46,6 +46,7 @@ jobs:
       working-directory: ./dev-agent
       run: |
         mvn clean deploy -DmuleDeploy \
+         -Dapp.name="dev-agent-sandbox" \
          -Denvironment="Sandbox" \
          -Dtarget.env="dev" \
          -Danypoint.psname="Cloudhub-US-East-2"  \
