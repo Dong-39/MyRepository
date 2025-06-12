@@ -4,7 +4,7 @@
 
 	<groupId>fb4d3be3-5b9b-4373-8d30-e1d667407bb1</groupId>
 	<artifactId>dev-agent</artifactId>
-	<version>${mule.app.ver}</version>
+	<version>1.0.7</version>
 	<packaging>mule-application</packaging>
 
 	<name>dev-agent</name>
@@ -32,6 +32,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<cloudhub2Deployment>
+					    <applicationName>dev-agent-${target.env}</applicationName>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<provider>MC</provider>
 						<businessGroup>JumSoft</businessGroup>
@@ -54,7 +55,7 @@
 							<anypoint.platform.client_secret>${env.client.secret}</anypoint.platform.client_secret>
 						</properties>
 					</cloudhub2Deployment>
-					<classifier>mule-application</classifier>
+					<classifier>---- select project type ----</classifier>
 				</configuration>
 			</plugin>
 		</plugins>
