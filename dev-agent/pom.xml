@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>fb4d3be3-5b9b-4373-8d30-e1d667407bb1</groupId>
-	<artifactId>dev-agent-${target.env}</artifactId>
+	<artifactId>dev-agent</artifactId>
 	<version>${mule.app.ver}</version>
 	<packaging>mule-application</packaging>
 
