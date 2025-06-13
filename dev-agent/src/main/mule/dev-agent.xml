@@ -20,7 +20,7 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 output application/json
 ---
 {
-	msg: "Hello,agent",
+	msg: "Hello,agent.",
 	infomation: p('msg'),
 	version: p('muleAppVer'),
 	deployment: p('target.env'),
