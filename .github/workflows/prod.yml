@@ -23,7 +23,7 @@ jobs:
       run: |
         mvn clean deploy -DmuleDeploy \
          -Dapp.name="dev-agent-prod" \
-         -Denvironment="Pord" \
+         -Denvironment="Prod" \
          -Dtarget.env="prod" \
          -Danypoint.psname="Cloudhub-US-East-2"  \
          -Dconnected.app.id="$APPID" \
