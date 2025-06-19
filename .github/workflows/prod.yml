@@ -46,7 +46,7 @@ jobs:
       run: echo "Customer Approved."
 
   deploy:
-    needs: vaildatetags
+    needs: customerapproval
     runs-on: ubuntu-latest
     environment:
       name: production-blue-developer
