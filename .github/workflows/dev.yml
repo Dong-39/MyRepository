@@ -12,14 +12,15 @@ env:
   ENVSECRET: ${{ secrets.sandbox_client_secret }}
 
 jobs:
+  # tag名のチェック
   vaildatetags:
     runs-on: ubuntu-latest
     steps:      
     - name: Validate tag
       run: |
         TAG_NAME="${GITHUB_REF##*/}"
-        echo "Tag: $TAG_NAME" 
-        # tag名のフォーマット検証
+        echo "TagName: $TAG_NAME" 
+        # フォーマットチェック
         if [[ ! "$TAG_NAME" =~ ^staging_blue_([0-9]{8})_([0-9]{2})$ ]]; then
           echo "ERROR: Tag must match: staging_blue_YYYYMMDD_XX (e.g. staging_blue_20250901_01)"
           exit 1
@@ -28,7 +29,7 @@ jobs:
         VERSION_PART="${BASH_REMATCH[2]}" # 連番
         echo "Date: $DATE_PART"
         echo "Version Number: $VERSION_PART"
-        # 日付け検証
+        # 日付けチェック
         if ! date -d "$DATE_PART" "+%Y%m%d" >/dev/null 2>&1; then
           echo "ERROR: Invalid date: $DATE_PART"
           exit 1
