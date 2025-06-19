@@ -42,7 +42,8 @@ jobs:
     environment:
       name: production-blue-customer
     steps:
-      run: echo "customer Approved."
+    - name: Customer Approved
+      run: echo "Customer Approved."
 
   deploy:
     needs: vaildatetags
