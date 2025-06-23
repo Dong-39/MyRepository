@@ -1,9 +1,9 @@
 name: Deploy to Production
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ master ]
+    tags:
+      - 'production_blue_[0-9][0-9][0-9][0-9][0-1][0-9][0-3][0-9]_[0-9][0-9]' #tagの環境名を監視する
 
 env:
   APPID: ${{ secrets.mule_connected_app_prod_id }}
@@ -12,8 +12,45 @@ env:
   ENVSECRET: ${{ secrets.prod_client_secret }}
 
 jobs:
-  deploy:
+  #tag名のチェック
+  validatetags:
     runs-on: ubuntu-latest
+    steps:      
+    - name: Validate tag
+      run: |
+        echo "This is Master Branch Tag." 
+        TAG_NAME="${GITHUB_REF##*/}"
+        echo "TagName: $TAG_NAME" 
+        # フォーマットチェック
+        if [[ ! "$TAG_NAME" =~ ^production_blue_([0-9]{8})_([0-9]{2})$ ]]; then
+          echo "ERROR: Tag must match: production_blue_YYYYMMDD_XX (e.g. production_blue_20250901_01)"
+          exit 1
+        fi
+        DATE_PART="${BASH_REMATCH[1]}" # 日付け
+        VERSION_PART="${BASH_REMATCH[2]}" # 連番
+        echo "Date: $DATE_PART"
+        echo "Version Number: $VERSION_PART"
+        # 日付けチェック
+        if ! date -d "$DATE_PART" "+%Y%m%d" >/dev/null 2>&1; then
+          echo "ERROR: Invalid date: $DATE_PART"
+          exit 1
+        fi
+
+  #顧客様の承認
+  customerapproval:
+    needs: validatetags
+    runs-on: ubuntu-latest
+    environment:
+      name: production-blue-customer
+    steps:
+    - name: Customer Approved
+      run: echo "Customer Approved."
+
+  deploy:
+    needs: customerapproval
+    runs-on: ubuntu-latest
+    environment:
+      name: production-blue-developer
     steps:
     - name: Checkout this repo
       uses: actions/checkout@v3
