@@ -18,6 +18,7 @@ jobs:
     steps:      
     - name: Validate tag
       run: |
+        echo "This is Master Branch Tag." 
         TAG_NAME="${GITHUB_REF##*/}"
         echo "TagName: $TAG_NAME" 
         # フォーマットチェック
