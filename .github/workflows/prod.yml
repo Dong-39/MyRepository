@@ -3,7 +3,7 @@ name: Deploy to Production
 on:
   push:
     tags:
-      - 'production_blue_*' #tagの環境名を監視する
+      - 'production_blue_[0-9][0-9][0-9][0-9][0-1][0-9][0-3][0-9]_[0-9][0-9]' #tagの環境名を監視する
 
 env:
   APPID: ${{ secrets.mule_connected_app_prod_id }}
@@ -13,7 +13,7 @@ env:
 
 jobs:
   #tag名のチェック
-  vaildatetags:
+  validatetags:
     runs-on: ubuntu-latest
     steps:      
     - name: Validate tag
@@ -37,7 +37,7 @@ jobs:
 
   #顧客様の承認
   customerapproval:
-    needs: vaildatetags
+    needs: validatetags
     runs-on: ubuntu-latest
     environment:
       name: production-blue-customer
