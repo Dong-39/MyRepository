@@ -1,59 +1,9 @@
 name: Add to Exchange and Deploy to Sandbox
 
 on:
-<<<<<<< HEAD
   push:
-    branches:
-      - Dev
-
-env:
-  APPID: ${{ secrets.mule_connected_app_sand_id }}
-  APPSECRET: ${{ secrets.mule_connected_app_sand_secret }}
-
-jobs:
-  exchangedep:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout this repo
-      uses: actions/checkout@v3
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-    - name: maven-settings-xml-action
-      uses: whelk-io/maven-settings-xml-action@v20
-      with:
-        repositories: '[{ "id": "anypoint-exchange-v3", "url": "https://maven.anypoint.mulesoft.com/api/v3/maven" }]'
-        servers: '[{ "id": "anypoint-exchange-v3", "username": "~~~Client~~~", "password": "${env.APPID}~?~${env.APPSECRET}" }]'
-    - name: Deploy to Exchange
-      working-directory: ./dev-agent
-      run: |
-        artifactName=$(ls *.jar | head -1)
-        mvn clean deploy
-
-  deploy:
-    needs: exchangedep
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout this repo
-      uses: actions/checkout@v3
-    - name: Deploy to Sandbox
-      working-directory: ./dev-agent
-      run: |
-        mvn clean deploy -DmuleDeploy \
-         -Denvironment="Sandbox" \
-         -Dtarget.env="dev" \
-         -Danypoint.psname="Cloudhub-US-East-2"  \
-         -Dconnected.app.id="$APPID" \
-         -Dconnected.app.secret="$APPSECRET"
-=======
-  workflow_dispatch:
-  push:
-    branches:
-      - Dev
+    tags:
+      - 'staging_blue_[0-9][0-9][0-9][0-9][0-1][0-9][0-3][0-9]_[0-9][0-9]' #tagの環境名を監視する
 
 env:
   APPID: ${{ secrets.mule_connected_app_sand_id }}
@@ -62,7 +12,32 @@ env:
   ENVSECRET: ${{ secrets.sandbox_client_secret }}
 
 jobs:
+  # tag名のチェック
+  validatetags:
+    runs-on: ubuntu-latest
+    steps:      
+    - name: Validate tag
+      run: |
+        echo "This is Master Branch Tag." 
+        TAG_NAME="${GITHUB_REF##*/}"
+        echo "TagName: $TAG_NAME" 
+        # フォーマットチェック
+        if [[ ! "$TAG_NAME" =~ ^staging_blue_([0-9]{8})_([0-9]{2})$ ]]; then
+          echo "ERROR: Tag must match: staging_blue_YYYYMMDD_XX (e.g. staging_blue_20250901_01)"
+          exit 1
+        fi
+        DATE_PART="${BASH_REMATCH[1]}" # 日付け
+        VERSION_PART="${BASH_REMATCH[2]}" # 連番
+        echo "Date: $DATE_PART"
+        echo "Version Number: $VERSION_PART"
+        # 日付けチェック
+        if ! date -d "$DATE_PART" "+%Y%m%d" >/dev/null 2>&1; then
+          echo "ERROR: Invalid date: $DATE_PART"
+          exit 1
+        fi
+
   exchangedep:
+    needs: validatetags
     runs-on: ubuntu-latest
     steps:
     - name: Checkout this repo
@@ -95,6 +70,7 @@ jobs:
       working-directory: ./dev-agent
       run: |
         mvn clean deploy -DmuleDeploy \
+         -Dapp.name="dev-agent-sandbox" \
          -Denvironment="Sandbox" \
          -Dtarget.env="dev" \
          -Danypoint.psname="Cloudhub-US-East-2"  \
@@ -102,4 +78,3 @@ jobs:
          -Dconnected.app.secret="$APPSECRET" \
          -Denv.client.id="$ENVID" \
          -Denv.client.secret="$ENVSECRET"
->>>>>>> refs/heads/Dev
